@@ -119,15 +119,9 @@ public class AtmosphereRenderPass : ScriptableRenderPass
 
         bool prefabMode = PrefabStageUtility.GetCurrentPrefabStage() == StageUtility.GetCurrentStage();
 
-        if (cameraData.postProcessEnabled) 
-        {
-            RenderEffects(cmd, renderingData.cameraData.renderer.cameraColorTargetHandle, prefabMode);
-        }
+        RenderEffects(cmd, renderingData.cameraData.renderer.cameraColorTargetHandle, prefabMode);
 #else
-        if (cameraData.postProcessEnabled) 
-        {
-            RenderEffects(cmd, renderingData.cameraData.renderer.cameraColorTargetHandle, false);
-        }
+        RenderEffects(cmd, renderingData.cameraData.renderer.cameraColorTargetHandle, false);
 #endif
 
 

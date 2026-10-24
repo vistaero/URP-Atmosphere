@@ -15,6 +15,16 @@ SAMPLER(sampler_PrevCameraDepth);
 
 int _RenderOverlay;
 float4 _PrevZBuffer;
+float4 _ProjectionParams;
+
+bool IsFarDepth(float rawDepth)
+{
+#if UNITY_REVERSED_Z
+	return rawDepth <= 0.000001;
+#else
+	return rawDepth >= 0.999999;
+#endif
+}
 
 // Normal, raw depth.
 float SampleDepth(float2 uv)
@@ -35,7 +45,7 @@ float4 SampleCompositeDepth(float2 uv)
 	float rawDepth = SampleDepth(uv);
 	float4 compositeDepth = 0;
 
-	if (_RenderOverlay == 1 && rawDepth <= 0.0) 
+	if (_RenderOverlay == 1 && IsFarDepth(rawDepth))
 	{
 		// If rendering an overlay and end of depth is reached:
 		compositeDepth = SamplePrevDepth(uv);
@@ -78,7 +88,7 @@ float CompositeDepthScaled(float2 uv, float viewLength)
 
 	float depth = LinearEyeDepth(rawDepth, _ZBufferParams) * viewLength;
 
-	if (_RenderOverlay == 1 && rawDepth <= 0.0) 
+	if (_RenderOverlay == 1 && IsFarDepth(rawDepth))
 	{
 		// If rendering an overlay and end of depth is reached:
 		float4 encInfo = SamplePrevDepth(uv);
@@ -86,9 +96,12 @@ float CompositeDepthScaled(float2 uv, float viewLength)
 		return LinearEyeDepth(encInfo.x, _PrevZBuffer) * encInfo.y;
 	}
 
+	if (IsFarDepth(rawDepth))
+	{
+		return _ProjectionParams.z * viewLength;
+	}
+
 	return depth;
 }
 
 #endif
-
-

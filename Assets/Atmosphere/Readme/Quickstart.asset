@@ -50,7 +50,8 @@ MonoBehaviour:
 
       If there is an
       Atmosphere Render Feature on the active renderer, the effect should display
-      on any cameras with Post Processing enabled. This includes the scene camera.'
+      on cameras using the Atmosphere Render Feature, regardless of whether Post
+      Processing is enabled.'
     linkText: 
     url: 
   links:

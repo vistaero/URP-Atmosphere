@@ -37,10 +37,8 @@ MonoBehaviour:
       Test if setting the cutoff depth value to 0 displays the atmosphere.\n\n<i>Planet
       is too Small:</i> Atmospheres can commonly encounter issues with very small
       planet values. Make sure all other values related to scale are in a sensible
-      range relative to the planet's size.\n\n<i>Active Camera does not have Post-Processing
-      enabled:</i>\nAtmospheres comply with camera Post-Processing settings, and
-      will disable/enable themselves depending on whether or not the camera has Post-Processing
-      enabled. Validate that your game or scene camera has Post-Processing enabled."
+      range relative to the planet's size.\n\n<i>Atmosphere Rendering:</i>\nMake sure
+      the active camera's renderer includes the Atmosphere Render Feature."
     linkText: 
     url: 
   - name: Header -Atmospher...
